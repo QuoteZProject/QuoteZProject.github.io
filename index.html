@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QuoteZ — Capture & Read Quotes</title>
+  <meta name="description" content="QuoteZ — lightweight quote-taking and reading app. Add people, group them, create multi-speaker quotes, and store data in a human-readable format.">
+  <style>
+    :root{--bg:#7a4069ff;--card:#ca4e79ff;--accent:#ffffff;--muted:#f3dbe7;--glass:rgba(255,255,255,0.08);--outline:#513252ff}
+    *{box-sizing:border-box}
+    body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(255,255,255,0.12), transparent 40%),
+      radial-gradient(900px 500px at 110% 10%, rgba(255,255,255,0.10), transparent 45%),
+      linear-gradient(180deg,#7a4069ff 0%, #6b3860 60%);
+      color:#fff; line-height:1.5}
+    .wrap::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,0.06),transparent 35%,rgba(255,255,255,0.04));mix-blend-mode:soft-light}
+    body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:0.08;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><rect width='160' height='160' fill='none'/><g fill='%23ffffff' font-family='Arial' font-weight='700' font-size='28'><text x='12' y='36'>Q</text><text x='96' y='64'>Z</text><text x='36' y='124'>Q</text><text x='120' y='132'>Z</text></g></svg>"); background-size:160px 160px; mix-blend-mode:soft-light}
+    .wrap{max-width:1024px;margin:48px auto;padding:24px}
+    header{display:flex;align-items:center;gap:16px;background:var(--card);padding:20px;border-radius:14px;border:2px solid var(--outline);box-shadow:0 10px 28px rgba(0,0,0,0.25);}
+    .logo{display:flex;align-items:center;gap:12px}
+    .brand{background:linear-gradient(135deg,var(--bg),var(--card));padding:6px 10px;border-radius:10px;border:2px solid var(--outline);display:flex;align-items:center;gap:10px}
+    .tag{color:var(--muted);font-size:13px}
+    nav{margin-left:auto}
+    nav a{color:#ffffff;text-decoration:none;margin-left:16px;font-size:14px;padding:6px 10px;border-radius:999px;text-shadow:0 1px 2px rgba(0,0,0,0.35)} nav a:hover{background:rgba(255,255,255,0.22); text-decoration:underline} nav a:visited{color:#ffffff}
+    .repo-link{color:#ffffff;font-weight:700;text-decoration:underline;text-shadow:0 1px 2px rgba(0,0,0,0.45)} .repo-link:hover{opacity:0.95}
+    .hero{display:grid;grid-template-columns:1fr;gap:20px;margin-top:28px;align-items:start;max-width:1024px;margin-left:auto;margin-right:auto}
+    .card{background:var(--card);padding:20px;border-radius:14px;border:2px solid var(--outline);box-shadow:0 10px 28px rgba(0,0,0,0.25);}
+    .cta{display:inline-block;margin-top:14px;padding:10px 16px;border-radius:999px;background:linear-gradient(90deg,#ca4e79ff,#f07aa2);color:#ffffff;font-weight:800;text-decoration:none;border:2px solid var(--outline);box-shadow:0 8px 22px rgba(0,0,0,0.25)} .cta:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(0,0,0,0.35)}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}
+    .feat{background:var(--glass);padding:14px;border-radius:12px;color:#fff;border:1px dashed rgba(255,255,255,0.25)}
+    h1{margin:0 0 8px 0;font-size:30px} .brand{background:linear-gradient(135deg,var(--bg),var(--card));padding:6px 10px;border-radius:10px;border:2px solid var(--outline)}
+    h2{font-size:18px;margin:0}
+    pre{background:rgba(0,0,0,0.35);padding:12px;border-radius:12px;overflow:auto;color:#ffe3f0;border:1px solid rgba(255,255,255,0.18)}
+    .hero-shot{width:100%;height:auto;display:block;border-radius:12px;border:2px solid var(--outline);object-fit:contain;max-height:520px;background:rgba(0,0,0,0.18)}
+    @media (max-width: 640px){
+      .wrap{padding:12px}
+      header{padding:14px}
+      h1{font-size:24px}
+      .features{gap:12px}
+      .feat{padding:12px}
+      .card{padding:14px}
+      nav a{margin-left:8px;padding:6px 8px}
+      .hero-shot{max-height:360px;border-radius:10px}
+      .cta{padding:10px 14px}
+      footer{font-size:12px}
+    }
+    @media (max-width: 420px){
+      .hero-shot{max-height:300px}
+      .brand{font-size:16px}
+      .tag{font-size:12px}
+    }
+    .shots img{width:100%;height:auto;display:block;border-radius:10px;border:2px solid var(--outline);background:rgba(0,0,0,0.25)}
+    .media-row{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:center}
+    @media (max-width: 800px){.media-row{grid-template-columns:1fr}}
+    pre{background:rgba(0,0,0,0.35);padding:12px;border-radius:12px;overflow:auto;color:#ffe3f0;border:1px solid rgba(255,255,255,0.18)}
+    .shots img{width:100%;height:auto;display:block;border-radius:10px;border:2px solid var(--outline);background:rgba(0,0,0,0.25)}
+    .hero-shot{width:100%;height:auto;display:block;margin:12px 0 4px;border-radius:12px;border:2px solid var(--outline);box-shadow:0 10px 28px rgba(0,0,0,0.25)}
+    footer{margin-top:34px;color:var(--muted);font-size:13px;text-align:center}
+    .pill{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(125,211,252,0.08);color:var(--accent);font-weight:600;font-size:13px}
+    @media(max-width:880px){.hero{grid-template-columns:1fr;}.wrap{margin:20px;padding:16px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo" style="min-width:220px">
+        <div>
+          <div class="brand">
+            <img src="assets/logo.svg" alt="QuoteZ logo" style="width:24px;height:24px;flex:0 0 auto;" />
+            <span>QuoteZ</span>
+          </div>
+          <div class="tag">Capture — Organize — Read</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#storage">Storage</a>
+        <a href="#examples">Examples</a>
+        <a href="#get">Get QuoteZ</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <h1>Smart, human-friendly quote management</h1>
+        <p style="color:var(--muted)">QuoteZ is a lightweight app for taking and reading quotes. Add people, put them into groups, and create multi-speaker quotes. Designed for authors, podcasters, researchers, and anyone who collects spoken or written snippets.</p>
+
+        <!-- Features stacked on the LEFT, screenshot-1 on the RIGHT (stacks on mobile) -->
+        <div class="media-row" style="margin-top:14px">
+          <div class="media-text">
+            <div class="features" style="margin-top:0">
+              <div class="feat">
+                <strong>People & Groups</strong>
+                <p class="tag">Create people, assign to multiple groups (e.g. characters, interviewees, team).</p>
+              </div>
+              <div class="feat">
+                <strong>Multi-Quote</strong>
+                <p class="tag">Quotes can contain multiple speakers on the same line using repeated speaker tags; timestamps are required.</p>
+              </div>
+              <div class="feat">
+                <strong>Human-readable format</strong>
+                <p class="tag">Uses QuoteZ’s own concise, human-readable single-line format for easy reading, diffing, and versioning.</p>
+              </div>
+              <div class="feat">
+                <strong>Advanced Search</strong>
+                <p class="tag">Filter by newest/oldest, date range, character-length range, and keyword search with powerful operators (wildcards, AND/OR/NOT, grouping). Designed for fast, precise digging through big quote sets.</p>
+              </div>
+            </div>
+          </div>
+          <img class="hero-shot" src="assets/screenshot-1.png" alt="QuoteZ main view" />
+        </div>
+
+        <a class="cta" href="#storage">See storage examples</a>
+      </div>
+    </section>
+
+
+
+    <section id="features" style="margin-top:26px">
+      <div class="card">
+        <div class="media-row">
+          <div class="media-text">
+            <h2>Features</h2>
+            <ul style="color:var(--muted)">
+              <li><strong>People</strong> — create named people with optional notes and nicknames (aliases).</li>
+              <li><strong>Groups</strong> — group people into any number of groups (tags, casts, teams).</li>
+              <li><strong>Multi-quote</strong> — compose quotes with more than one speaker on the same line using repeated speaker tags; timestamps are required.</li>
+              <li><strong>Nicknames on copy</strong> — copying a quote uses the speaker’s nickname; if multiple nicknames exist, QuoteZ prompts you to choose.</li>
+              <li><strong>Search & Filter</strong> — search by text, person, group or date; filter multi-quote participants.</li>
+            </ul>
+          </div>
+          <!-- screenshot-2 moved to the side like screenshot-3 (stacks on mobile) -->
+          <img class="hero-shot" src="assets/screenshot-2.png" alt="QuoteZ people & groups" />
+        </div>
+      </div>
+    </section>
+
+    <section id="storage" style="margin-top:18px">
+      <div class="card">
+        <div class="media-row">
+          <div class="media-text">
+            <h2>Storage format</h2>
+            <p>QuoteZ uses a concise, human-readable single-line record format with required timestamps and required URLs. The timestamp uses <code>yyyy-MM-dd;hhh:mm:ss</code>. The quote body supports multiple speakers via inline attribution.</p>
+          </div>
+          <img class="hero-shot" src="assets/screenshot-3.png" alt="QuoteZ multi-quote editor" />
+        </div>
+      </div>
+    </section>
+
+    <section id="examples" style="margin-top:18px">
+      <div class="card">
+        <h2>Examples & tips</h2>
+        <ol style="color:var(--muted)">
+          <li><strong>Character notes:</strong> Use groups for story casts so you can filter quotes per scene.</li>
+          <li><strong>Interview transcripts:</strong> Use multi-quote turns with timestamps to reconstruct the flow.</li>
+          <li><strong>Source-linked quotes:</strong> Every quote includes a required URL so you can jump back to the exact source (episode, page, timestamp).</li>
+        </ol>
+
+
+      </div>
+    </section>
+
+    <section id="get" style="margin-top:18px">
+      <div class="card">
+        <h2>Get QuoteZ</h2>
+        <p style="color:var(--muted)">This site is a static showcase. QuoteZ is shipped as a <strong>Flatpak</strong>. Link to the GitHub repository or releases here and provide Flatpak install instructions.</p>
+        <p style="color:var(--muted)">Official repository: <a href="https://github.com/QuoteZProject/QuoteZ" class="repo-link">https://github.com/QuoteZProject/QuoteZ</a></p>
+        <p style="margin-top:8px"><a class="cta" href="https://github.com/QuoteZProject/QuoteZ">View on GitHub</a></p>
+      </div>
+    </section>
+
+    <footer></footer>
+
+  </div>
+</body>
+</html>
