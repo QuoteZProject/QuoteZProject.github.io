@@ -1,57 +1,45 @@
 # ⚠️ This is the GitHub Pages repo. For the real QuoteZ repository visit https://github.com/QuoteZProject/QuoteZ ⚠️
 
 
-# QuoteZ — Smart, human-friendly quote management
+# QuoteZ — Quickly note & Zealously recall
 
-QuoteZ is a lightweight app for taking and reading quotes. Add people, put them into groups, and create multi-speaker quotes. Designed for authors, podcasters, researchers, and anyone who collects spoken or written snippets.
+A seamless way to capture, organize, and rediscover the quotes that resonate with you. Build and manage your personal collection with ease.
 
 ---
 
-## People & Groups
-
-Create people, assign to multiple groups (e.g. characters, interviewees, team).
-
-## Multi-Quote
-
-Quotes can contain multiple speakers on the same line using repeated speaker tags; timestamps are required.
-
-## Human-readable format
-
-Uses QuoteZ’s own concise, human-readable single-line format for easy reading, diffing, and versioning.
-
-## Advanced Search
-
-Filter by newest/oldest, date range, character-length range, and keyword search with powerful operators (wildcards, AND/OR/NOT, grouping). Designed for fast, precise digging through big quote sets.
-
-## Main view
-
-QuoteZ main view
-
-See storage examples
-
 ## Features
 
-* **People** — create named people with optional notes and nicknames (aliases).
-* **Groups** — group people into any number of groups (tags, casts, teams).
-* **Multi-quote** — compose quotes with more than one speaker on the same line using repeated speaker tags; timestamps are required.
-* **Nicknames on copy** — copying a quote uses the speaker’s nickname; if multiple nicknames exist, QuoteZ prompts you to choose.
-* **Search & Filter** — search by text, person, group or date; filter multi-quote participants.
+### One-Click Actions
+Streamline your workflow with instant access to essential tools. Copy quote text, edit existing entries, or remove outdated quotes with a single click.
 
-## Storage format
+### Multi-Speaker Quotes
+Handle complex dialogues with ease. A single entry can capture interactions between multiple people, ensuring no part of the conversation is lost.
 
-QuoteZ uses a concise, human-readable single-line record format with required timestamps and required URLs. The timestamp uses `yyyy-MM-dd;hhh:mm:ss`. The quote body supports multiple speakers via inline attribution.
+### Smart Grouping
+Keep your library structured and intuitive. Organize your collection using person-specific categories and custom groups to find what matters most.
 
-## Multi-quote editor
-
-QuoteZ multi-quote editor
-
-## Examples & tips
-
-* **Character notes:** Use groups for story casts so you can filter quotes per scene.
-* **Interview transcripts:** Use multi-quote turns with timestamps to reconstruct the flow.
-* **Source-linked quotes:** Every quote includes a required URL so you can jump back to the exact source (episode, page, timestamp).
+### Powerful Filtering
+Navigate large collections without the noise. Quickly narrow down your entries by date, character length, specific people, or assigned groups.
 
 ## Build
+
+Install required packages (Debian):
+
+```bash
+sudo apt install -y flatpak flatpak-builder git python3 python3-pip python3-venv build-essential python3-dev libffi-dev libssl-dev pkg-config curl
+```
+
+Make sure you have flathub setup:
+
+```bash
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+
+Install required packages (Flatpak):
+
+```bash
+flatpak-builder --force-clean --install-deps-from=flathub build-dir io.github.quotezproject.quotez.json
+```
 
 To build cd into the main directory and use the commands:
 
@@ -64,3 +52,7 @@ Create a flatpak file with:
 ```bash
 flatpak build-bundle flatpak/builder/repo flatpak/builder/QuoteZ.flatpak io.github.quotezproject.quotez
 ```
+
+## DISCLAIMER
+
+This was fully vibe-coded, I do not know how to code!
