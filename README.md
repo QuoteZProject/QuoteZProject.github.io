@@ -5,6 +5,8 @@
 
 A seamless way to capture, organize, and rediscover the quotes that resonate with you. Build and manage your personal collection with ease.
 
+![Main view](assets/screenshot-1.png)
+
 ---
 
 ## Features
